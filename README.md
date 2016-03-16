@@ -7,7 +7,7 @@ Download **XlsExporter.php** and move it into **/protected/components/** in your
 
 ## Usage
 Once the XlsExporter component is in place, you just need to:
-+ Seach for whatever data you want to create the Xls file about
++ Search for whatever data you want to create the Xls file about
 + Call the downloadXls function with the correct parameters:
   + filename: String that will be used as name for the output filename. No need to append '.xls' since it will be added by default. (**required**)
   + data: Active record data set (**required**)
