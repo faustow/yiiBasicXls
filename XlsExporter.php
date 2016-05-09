@@ -46,8 +46,8 @@ class XlsExporter
      * Private method to create xls string from active record data set
      *
      * @param $data - CActiveRecord or Array
-     * Ejemplos: 1.CActiveRecord: $data = Model::model()->findAll(new CDbCriteria()->condition = "column > $param");
-     *           2.Array: $data = Yii::app()->db->createCommand("SELECT * FROM t")->queryAll()
+     * Example: 1.CActiveRecord: $data = Model::model()->findAll(new CDbCriteria()->condition = "column > $param");
+     *          2.Array: $data = Yii::app()->db->createCommand("SELECT * FROM t")->queryAll()
      *
      * @param $title - Title displayed on top
      * @param $header - Boolean to show/hide header
@@ -64,14 +64,15 @@ class XlsExporter
         $string = '<html>' . self::CRLF
             . '<head>' . self::CRLF
             . '<meta http-equiv="content-type" content="text/html; charset=utf-8">' . self::CRLF
+            //The following line of code is to allow long numbers (such as bank account number )
             . '<style> .text{ mso-number-format:\@; } </style>' . self::CRLF
             . '</head>' . self::CRLF
             . '<body style="text-align:center">' . self::CRLF;
 
         if ($title)
             $string .= "<b>$title</b><br /><br />" . self::CRLF
-                . Yii::t('main', 'Total de registros '.$type) . ': ' . count($data) . '<br />' . self::CRLF
-                . Yii::t('main', 'Fecha') . ': ' . Yii::app()->dateFormatter->formatDateTime($_SERVER['REQUEST_TIME']) . '<br /><br />' . self::CRLF;
+                . Yii::t('main', 'Exported '.$type) . ': ' . count($data) . '<br />' . self::CRLF
+                . Yii::t('main', 'Export date') . ': ' . Yii::app()->dateFormatter->formatDateTime($_SERVER['REQUEST_TIME']) . '<br /><br />' . self::CRLF;
 
         if ($data)
         {
@@ -106,14 +107,13 @@ class XlsExporter
                             $final = $dato_r->$dato;
                         }else{
                             //The field value is null
-                            $final="NULL";
+                            $final="";
                         }
                     }else{
                         //$data is an array data, result of: Yii::app()->db->createCommand("SELECT * FROM tabla")->queryAll()
                         $final = $row[$dato];
                     }
                     $string .= '<td class="text">' . $final . '</td>' . self::CRLF;
-
                 }
                 $string .= '</tr>' . self::CRLF;
             }
